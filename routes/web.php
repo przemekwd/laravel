@@ -11,6 +11,14 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['middleware' => ['menus']], function() {
+    Route::get('/home', ['as' => 'homepage', function() {
+        return view('home');
+    }]);
+
+    Route::resource('artist', 'ArtistController');
+
+    Route::resource('album', 'AlbumController');
+
+    Route::resource('distributor', 'DistributorController');
 });

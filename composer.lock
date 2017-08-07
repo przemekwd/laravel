@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "96098e473b028cdb2529580554a1ae3e",
+    "content-hash": "9c5ba0f840c9f8aeadc4da9236140916",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -149,6 +149,50 @@
             "time": "2017-05-14T14:47:48+00:00"
         },
         {
+            "name": "ezyang/htmlpurifier",
+            "version": "v4.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ezyang/htmlpurifier.git",
+                "reference": "ae1828d955112356f7677c465f94f7deb7d27a40"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/ae1828d955112356f7677c465f94f7deb7d27a40",
+                "reference": "ae1828d955112356f7677c465f94f7deb7d27a40",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "HTMLPurifier": "library/"
+                },
+                "files": [
+                    "library/HTMLPurifier.composer.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL"
+            ],
+            "authors": [
+                {
+                    "name": "Edward Z. Yang",
+                    "email": "admin@htmlpurifier.org",
+                    "homepage": "http://ezyang.com"
+                }
+            ],
+            "description": "Standards compliant HTML filter written in PHP",
+            "homepage": "http://htmlpurifier.org/",
+            "keywords": [
+                "html"
+            ],
+            "time": "2015-08-05T01:03:42+00:00"
+        },
+        {
             "name": "jakub-onderka/php-console-color",
             "version": "0.1",
             "source": {
@@ -234,6 +278,138 @@
                 }
             ],
             "time": "2015-04-20T18:58:01+00:00"
+        },
+        {
+            "name": "kaishiyoku/laravel-html-purifier",
+            "version": "1.0.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Kaishiyoku/laravel-html-purifier.git",
+                "reference": "7bcd9669081aaca93e48594910110f7f5d40e4ed"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Kaishiyoku/laravel-html-purifier/zipball/7bcd9669081aaca93e48594910110f7f5d40e4ed",
+                "reference": "7bcd9669081aaca93e48594910110f7f5d40e4ed",
+                "shasum": ""
+            },
+            "require": {
+                "ezyang/htmlpurifier": "4.7.0",
+                "illuminate/support": "5.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Kaishiyoku\\": "src/Kaishiyoku"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andreas Wiedel",
+                    "email": "dev@andreas-wiedel.de"
+                }
+            ],
+            "description": "A HTML filter using htmlpurifier with additional HTML5 rules.",
+            "time": "2017-06-20T16:58:31+00:00"
+        },
+        {
+            "name": "kaishiyoku/laravel-menu",
+            "version": "1.3.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Kaishiyoku/laravel-menu.git",
+                "reference": "4b354bd45315cefe4e9594ad4ba94df34d5b8385"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Kaishiyoku/laravel-menu/zipball/4b354bd45315cefe4e9594ad4ba94df34d5b8385",
+                "reference": "4b354bd45315cefe4e9594ad4ba94df34d5b8385",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "5.*",
+                "illuminate/routing": "5.*",
+                "illuminate/support": "5.*",
+                "kaishiyoku/laravel-html-purifier": "1.*",
+                "laravelcollective/html": "5.*",
+                "php": ">=5.5.9"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Kaishiyoku\\": "src/Kaishiyoku"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kaishiyoku",
+                    "email": "dev@andreas-wiedel.de"
+                }
+            ],
+            "description": "Create menus for Laravel 5 with css-class highlighting support",
+            "time": "2017-07-28T07:59:29+00:00"
+        },
+        {
+            "name": "kris/laravel-form-builder",
+            "version": "1.12.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kristijanhusak/laravel-form-builder.git",
+                "reference": "97eb09512b31cb41787e315ef2f4f6a6137c5337"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kristijanhusak/laravel-form-builder/zipball/97eb09512b31cb41787e315ef2f4f6a6137c5337",
+                "reference": "97eb09512b31cb41787e315ef2f4f6a6137c5337",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "5.*@dev",
+                "illuminate/validation": "5.*@dev",
+                "laravelcollective/html": "5.*",
+                "php": ">=5.6.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "~3.4",
+                "phpunit/phpunit": "~5.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.12.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Kris\\LaravelFormBuilder": "src/"
+                },
+                "classmap": [
+                    "tests/FormBuilderTestCase.php"
+                ],
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kristijan Husak",
+                    "email": "husakkristijan@gmail.com"
+                }
+            ],
+            "description": "Laravel form builder - symfony like",
+            "time": "2017-05-29T08:16:44+00:00"
         },
         {
             "name": "laravel/framework",
@@ -426,6 +602,102 @@
                 "psysh"
             ],
             "time": "2017-07-13T13:11:05+00:00"
+        },
+        {
+            "name": "laravelcollective/html",
+            "version": "v5.4.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/LaravelCollective/html.git",
+                "reference": "9b8f51e7a2368911c896f5d42757886bae0717b5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/LaravelCollective/html/zipball/9b8f51e7a2368911c896f5d42757886bae0717b5",
+                "reference": "9b8f51e7a2368911c896f5d42757886bae0717b5",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/http": "5.4.*",
+                "illuminate/routing": "5.4.*",
+                "illuminate/session": "5.4.*",
+                "illuminate/support": "5.4.*",
+                "illuminate/view": "5.4.*",
+                "php": ">=5.6.4"
+            },
+            "require-dev": {
+                "illuminate/database": "5.4.*",
+                "mockery/mockery": "~0.9.4",
+                "phpunit/phpunit": "~5.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Collective\\Html\\": "src/"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylorotwell@gmail.com"
+                },
+                {
+                    "name": "Adam Engebretson",
+                    "email": "adam@laravelcollective.com"
+                }
+            ],
+            "description": "HTML and Form Builders for the Laravel Framework",
+            "homepage": "http://laravelcollective.com",
+            "time": "2017-05-22T06:35:07+00:00"
+        },
+        {
+            "name": "lavary/laravel-menu",
+            "version": "v1.6.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lavary/laravel-menu.git",
+                "reference": "1617add78aa8ec8e4657aba3d88d2b86fc534b9f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lavary/laravel-menu/zipball/1617add78aa8ec8e4657aba3d88d2b86fc534b9f",
+                "reference": "1617add78aa8ec8e4657aba3d88d2b86fc534b9f",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": ">=5.0",
+                "illuminate/view": ">=5.0",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Lavary\\Menu\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Lavary",
+                    "email": "mrl.8081@gmail.com"
+                }
+            ],
+            "description": "A quick way to create menus in Laravel 5",
+            "homepage": "https://github.com/lavary/laravel-menu",
+            "keywords": [
+                "laravel"
+            ],
+            "time": "2016-09-12T13:17:45+00:00"
         },
         {
             "name": "league/flysystem",
