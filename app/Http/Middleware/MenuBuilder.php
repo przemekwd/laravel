@@ -42,6 +42,14 @@ class MenuBuilder
             Menu::link('distributor.index', '<i class="material-icons menu-icon">business</i>' . Lang::get('menu.distributors')),
         ], ['class' => 'nav navbar-nav navbar-left']);
 
+        Menu::register('user-menu', [
+            Menu::link('', '<i class="material-icons menu-icon">account_circle</i>', [], [
+                'title' => Lang::get('layout.logout'),
+                'class' => 'disabled',
+            ]),
+            Menu::link('album.index', '<i class="material-icons menu-icon">power_settings_new</i>', [], ['title' => Lang::get('layout.logout')]),
+        ], ['class' => 'nav navbar-nav navbar-right']);
+
         return $next($request);
     }
 }

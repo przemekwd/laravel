@@ -12,7 +12,7 @@
 */
 
 Route::group(['middleware' => ['menus']], function() {
-    Route::get('/home', ['as' => 'homepage', function() {
+    Route::get('/', ['as' => 'homepage', function() {
         return view('home');
     }]);
 

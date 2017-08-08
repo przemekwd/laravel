@@ -16,6 +16,7 @@
     <body>
         <nav class="navbar navbar-inverse">
             {!! Menu::render() !!}
+            {!! Menu::render('user-menu') !!}
         </nav>
         <div class="container">
             @yield('content')
