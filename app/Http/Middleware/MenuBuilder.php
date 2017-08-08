@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use Kaishiyoku\Menu\Facades\Menu;
 
@@ -43,11 +44,11 @@ class MenuBuilder
         ], ['class' => 'nav navbar-nav navbar-left']);
 
         Menu::register('user-menu', [
-            Menu::link('', '<i class="material-icons menu-icon">account_circle</i>', [], [
-                'title' => Lang::get('layout.logout'),
+            Menu::link('', '<i class="material-icons menu-icon">account_circle</i> ' . Auth::user()->name, [], [
+                'title' => Lang::get('auth.logout'),
                 'class' => 'disabled',
             ]),
-            Menu::link('album.index', '<i class="material-icons menu-icon">power_settings_new</i>', [], ['title' => Lang::get('layout.logout')]),
+            Menu::link('logout', '<i class="material-icons menu-icon">power_settings_new</i>', [], ['title' => Lang::get('auth.logout')]),
         ], ['class' => 'nav navbar-nav navbar-right']);
 
         return $next($request);

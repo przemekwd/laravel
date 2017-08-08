@@ -14,5 +14,16 @@ return [
     */
 
     'login' => 'Zaloguj',
+    'login_label' => 'Panel logowania',
     'logout' => 'Wyloguj',
+    'register_label' => 'Rejestracja',
+    'register' => 'Zarejestruj',
+    'form' => [
+        'email' => 'E-mail',
+        'username' => 'Nazwa użytkownika',
+        'password' => 'Hasło',
+        'password-confirm' => 'Powtórz hasło',
+        'remember' => 'Zapamiętaj mnie',
+    ],
+    'back' => 'Powrót do poprzedniej strony',
 ];

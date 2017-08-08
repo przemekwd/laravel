@@ -11,7 +11,7 @@
 |
 */
 
-Route::group(['middleware' => ['menus']], function() {
+Route::group(['middleware' => ['menus', 'auth']], function() {
     Route::get('/', ['as' => 'homepage', function() {
         return view('home');
     }]);
@@ -22,3 +22,9 @@ Route::group(['middleware' => ['menus']], function() {
 
     Route::resource('distributor', 'DistributorController');
 });
+
+Auth::routes();
+
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
+
+
