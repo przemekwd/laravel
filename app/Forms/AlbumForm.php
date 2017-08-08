@@ -5,7 +5,7 @@ namespace App\Forms;
 use Illuminate\Support\Facades\Lang;
 use Kris\LaravelFormBuilder\Form;
 
-class ArtistForm extends Form
+class AlbumForm extends Form
 {
     public function buildForm()
     {

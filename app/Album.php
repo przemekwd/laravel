@@ -54,4 +54,14 @@ class Album extends Model
     {
         return $this->belongsToMany('App\Genre');
     }
+
+    public function mediums()
+    {
+        return $this->belongsToMany('App\Medium');
+    }
+
+    public function tracks()
+    {
+        return $this->hasMany('App\Track');
+    }
 }

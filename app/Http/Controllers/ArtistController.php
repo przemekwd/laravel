@@ -6,6 +6,7 @@ use App\Artist;
 use App\Forms\ArtistForm;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Session;
 use Kris\LaravelFormBuilder\FormBuilder;
 
 class ArtistController extends Controller
@@ -25,6 +26,7 @@ class ArtistController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param FormBuilder $formBuilder
      * @return \Illuminate\Http\Response
      */
     public function create(FormBuilder $formBuilder)
@@ -46,6 +48,7 @@ class ArtistController extends Controller
     /**
      * Store a newly created resource in storage.
      *
+     * @param FormBuilder $formBuilder
      * @return \Illuminate\Http\Response
      */
     public function store(FormBuilder $formBuilder)
@@ -87,24 +90,58 @@ class ArtistController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Artist  $artist
+     * @param  \App\Artist $artist
+     * @param FormBuilder $formBuilder
      * @return \Illuminate\Http\Response
      */
-    public function edit(Artist $artist)
+    public function edit(Artist $artist, FormBuilder $formBuilder)
     {
-        //
+        $form = $formBuilder->create(ArtistForm::class, [
+                'method' => 'PUT',
+                'url' => route('artist.update', ['id' => $artist->id]),
+                'model' => $artist,
+            ])
+            ->add('submit', 'submit', [
+                'label' => Lang::get('buttons.edit'),
+                'attr' => [
+                    'class' => 'btn btn-warning pull-right',
+                    'role' => 'button',
+                ],
+            ]);
+
+        return view('artist.edit', compact('form'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Artist  $artist
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Artist $artist
+     * @param FormBuilder $formBuilder
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Artist $artist)
+    public function update(Request $request, Artist $artist, FormBuilder $formBuilder)
     {
-        //
+        $form = $formBuilder->create(ArtistForm::class, [
+                'method' => 'PUT',
+                'url' => route('artist.update', ['id' => $artist->id]),
+            ])
+            ->add('submit', 'submit', [
+                'label' => Lang::get('buttons.edit'),
+                'attr' => [
+                    'class' => 'btn btn-success pull-right',
+                    'role' => 'button',
+                ],
+            ]);
+
+        if (!$form->isValid()) {
+            return redirect()->back()->withErrors($form->getErrors())->withInput();
+        }
+
+        $artist->fill($form->getRequest()->all());
+        $artist->save();
+
+        return redirect()->route('artist.index');
     }
 
     /**
@@ -115,6 +152,8 @@ class ArtistController extends Controller
      */
     public function destroy(Artist $artist)
     {
-        //
+        $artist->delete();
+
+        return redirect()->route('artist.index');
     }
 }

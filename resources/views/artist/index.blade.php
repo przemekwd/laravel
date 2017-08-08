@@ -42,18 +42,20 @@
                 </td>
                 <td>{{ $artist->country }}</td>
                 <td>
-                    <a href="{{ route('artist.show', ['id' => $artist->id]) }}" class="btn btn-info" role="button">
-                        <i class="material-icons">info_outline</i>
-                        @lang('buttons.show')
-                    </a>
-                    <a href="{{ route('artist.edit', ['id' => $artist->id]) }}" class="btn btn-warning" role="button">
-                        <i class="material-icons">create</i>
-                        @lang('buttons.edit')
-                    </a>
-                    <a href="{{ route('artist.destroy', ['id' => $artist->id]) }}" class="btn btn-danger" role="button">
-                        <i class="material-icons">highlight_off</i>
-                        @lang('buttons.delete')
-                    </a>
+                    {{ Form::open(['route' => ['artist.destroy', $artist->id], 'method' => 'DELETE']) }}
+                        <a href="{{ route('artist.show', ['id' => $artist->id]) }}" class="btn btn-info" role="button">
+                            <i class="material-icons">info_outline</i>
+                            @lang('buttons.show')
+                        </a>
+                        <a href="{{ route('artist.edit', ['id' => $artist->id]) }}" class="btn btn-warning" role="button">
+                            <i class="material-icons">create</i>
+                            @lang('buttons.edit')
+                        </a>
+                        <button class="btn btn-danger" type="submit" role="button">
+                            <i class="material-icons">highlight_off</i>
+                            @lang('buttons.delete')
+                        </button>
+                    {{ Form::close() }}
                 </td>
             </tr>
             @endforeach

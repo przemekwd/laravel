@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Distributor;
+use App\Forms\DistributorForm;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Lang;
+use Kris\LaravelFormBuilder\FormBuilder;
 
 class DistributorController extends Controller
 {
@@ -14,28 +17,62 @@ class DistributorController extends Controller
      */
     public function index()
     {
-        //
+        $distributors = Distributor::all();
+
+        return view('distributor.index', ['distributors' => $distributors]);
     }
 
     /**
      * Show the form for creating a new resource.
      *
+     * @param FormBuilder $formBuilder
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(FormBuilder $formBuilder)
     {
-        //
+        $form = $formBuilder->create(DistributorForm::class, [
+            'method' => 'POST',
+            'url' => route('distributor.store'),
+        ])
+            ->add('submit', 'submit', [
+                'label' => Lang::get('buttons.add'),
+                'attr' => [
+                    'class' => 'btn btn-success pull-right',
+                    'role' => 'button',
+                ]]);
+
+        return view('distributor.create', compact('form'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param FormBuilder $formBuilder
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FormBuilder $formBuilder)
     {
-        //
+        $form = $formBuilder->create(DistributorForm::class, [
+            'method' => 'POST',
+            'url' => route('distributor.store'),
+        ])
+            ->add('submit', 'submit', [
+                'label' => Lang::get('buttons.add'),
+                'attr' => [
+                    'class' => 'btn btn-success pull-right',
+                    'role' => 'button',
+                ],
+            ]);
+
+        if (!$form->isValid()) {
+            return redirect()->back()->withErrors($form->getErrors())->withInput();
+        }
+
+        $distributor = new Distributor();
+        $distributor->fill($form->getRequest()->all());
+        $distributor->save();
+
+        return redirect()->route('distributor.index');
     }
 
     /**
@@ -46,30 +83,64 @@ class DistributorController extends Controller
      */
     public function show(Distributor $distributor)
     {
-        //
+        return view('distributor.show', ['distributor' => $distributor]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Distributor  $distributor
+     * @param  \App\Distributor $distributor
+     * @param FormBuilder $formBuilder
      * @return \Illuminate\Http\Response
      */
-    public function edit(Distributor $distributor)
+    public function edit(Distributor $distributor, FormBuilder $formBuilder)
     {
-        //
+        $form = $formBuilder->create(DistributorForm::class, [
+            'method' => 'PUT',
+            'url' => route('distributor.update', ['id' => $distributor->id]),
+            'model' => $distributor,
+        ])
+            ->add('submit', 'submit', [
+                'label' => Lang::get('buttons.edit'),
+                'attr' => [
+                    'class' => 'btn btn-warning pull-right',
+                    'role' => 'button',
+                ],
+            ]);
+
+        return view('distributor.edit', compact('form'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Distributor  $distributor
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Distributor $distributor
+     * @param FormBuilder $formBuilder
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Distributor $distributor)
+    public function update(Request $request, Distributor $distributor, FormBuilder $formBuilder)
     {
-        //
+        $form = $formBuilder->create(DistributorForm::class, [
+            'method' => 'PUT',
+            'url' => route('distributor.update', ['id' => $distributor->id]),
+        ])
+            ->add('submit', 'submit', [
+                'label' => Lang::get('buttons.edit'),
+                'attr' => [
+                    'class' => 'btn btn-warning pull-right',
+                    'role' => 'button',
+                ],
+            ]);
+
+        if (!$form->isValid()) {
+            return redirect()->back()->withErrors($form->getErrors())->withInput();
+        }
+
+        $distributor->fill($form->getRequest()->all());
+        $distributor->save();
+
+        return redirect()->route('distributor.index');
     }
 
     /**
@@ -80,6 +151,8 @@ class DistributorController extends Controller
      */
     public function destroy(Distributor $distributor)
     {
-        //
+        $distributor->delete();
+
+        return redirect()->route('distributor.index');
     }
 }

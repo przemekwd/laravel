@@ -21,6 +21,8 @@ Route::group(['middleware' => ['menus', 'auth']], function() {
     Route::resource('album', 'AlbumController');
 
     Route::resource('distributor', 'DistributorController');
+
+    Route::resource('track', 'TrackController');
 });
 
 Auth::routes();

@@ -49,6 +49,10 @@
         @lang('buttons.edit')
     </a>
 
+    {{ Form::open(['route' => ['artist.destroy', $artist->id], 'method' => 'DELETE']) }}
+        <button class="btn btn-danger pull-right" type="submit" role="button">@lang('buttons.delete')</button>
+    {{ Form::close() }}
+
     <a href="{{ route('artist.index') }}" class="btn btn-default" role="button" aria-label="Left Align">
         <i class="material-icons">undo</i>
         @lang('buttons.back')
