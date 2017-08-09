@@ -22,7 +22,7 @@ Route::group(['middleware' => ['menus', 'auth']], function() {
 
     Route::resource('distributor', 'DistributorController');
 
-    Route::resource('track', 'TrackController');
+    Route::resource('album/{albumid}/track', 'TrackController');
 });
 
 Auth::routes();

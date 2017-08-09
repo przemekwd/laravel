@@ -168,3 +168,7 @@ table tbody tr td {
 .panel-heading h3 .material-icons {
     vertical-align: top;
 }
+
+.block {
+    display: block;
+}

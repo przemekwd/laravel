@@ -48,7 +48,7 @@
         <i class="material-icons">undo</i>
         @lang('buttons.back')
     </a>
-    <a href="{{ route('artist.create') }}" class="btn btn-success pull-right" role="button">
+    <a href="{{ route('album.create') }}" class="btn btn-success pull-right" role="button">
         <i class="material-icons">add_circle_outline</i>
         @lang('buttons.add')
     </a>

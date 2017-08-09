@@ -2,6 +2,10 @@
 
 namespace App\Forms;
 
+use App\Artist;
+use App\Distributor;
+use App\Genre;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Lang;
 use Kris\LaravelFormBuilder\Form;
 
@@ -10,44 +14,92 @@ class AlbumForm extends Form
     public function buildForm()
     {
         $this
-            ->add('name', 'text', [
+            ->add('title', 'text', [
                 'attr' => [
                     'class' => 'form-control mb-2',
                 ],
-                'label' => Lang::get('artist.form.name'),
+                'label' => Lang::get('album.form.title'),
+                'required' => true,
             ])
-            ->add('firstname', 'text', [
+            ->add('description', 'text', [
                 'attr' => [
                     'class' => 'form-control mb-2',
                 ],
-                'label' => Lang::get('artist.form.firstname'),
+                'label' => Lang::get('album.form.description'),
             ])
-            ->add('lastname', 'text', [
-                'attr' => [
-                    'class' => 'form-control mb-2',
-                ],
-                'label' => Lang::get('artist.form.lastname'),
-            ])
-            ->add('birth_date', 'text', [
+            ->add('release_date', 'text', [
                 'widget' => 'single_text',
                 'html5' => false,
                 'attr' => [
-                    'class' => 'form-control mb-2 js-datepicker',
+                    'class' => 'form-control mb-2 release',
                 ],
-                'label' => Lang::get('artist.form.birthdate_person_band'),
+                'label' => Lang::get('album.form.release_date'),
                 'required' => true,
             ])
-            ->add('country', 'text', [
+            ->add('record_year', 'text', [
+                'widget' => 'single_text',
+                'html5' => false,
+                'rules' => 'required|numeric',
                 'attr' => [
                     'class' => 'form-control mb-2',
                 ],
-                'label' => Lang::get('artist.form.country'),
+                'label' => Lang::get('album.form.record_year'),
+            ])
+            ->add('artist', 'entity', [
+                'class' => 'App\Artist',
+                'query_builder' => function (Artist $artist) {
+                    return $artist
+                        ->select(DB::raw('CONCAT(COALESCE(name, ""), COALESCE(firstname, ""), " ", COALESCE(lastname, "")) AS pname'), 'id')
+                        ->orderBy('name')
+                        ->orderBy('lastname')
+                        ->orderBy('firstname');
+                },
+                'property' => 'pname',
+                'attr' => [
+                    'class' => 'form-control mb-2',
+                ],
+                'label' => Lang::get('album.form.artist'),
                 'required' => true,
             ])
-            ->add('band', 'checkbox', [
-                'label' => Lang::get('artist.form.band'),
-                'value' => 1,
-                'default' => 1
+            ->add('distributor', 'entity', [
+                'class' => 'App\Distributor',
+                'query_builder' => function (Distributor $distributor) {
+                    return $distributor
+                        ->orderBy('name')
+                        ->get();
+                },
+                'attr' => [
+                    'class' => 'form-control mb-2',
+                ],
+                'label' => Lang::get('album.form.distributor'),
+                'required' => true,
+            ])
+            ->add('genres', 'entity', [
+                'class' => 'App\Genre',
+                'property' => 'name_pl',
+                'attr' => [
+                    'class' => 'form-control mb-2 genres',
+                    'multiple' => 'multiple',
+                ],
+                'expanded' => true,
+                'multiple' => true,
+                'label' => Lang::get('album.form.genres'),
+                'label_attr' => [
+                    'class' => 'block',
+                ],
+            ])
+            ->add('mediums', 'entity', [
+                'class' => 'App\Medium',
+                'attr' => [
+                    'class' => 'form-control mb-2 genres',
+                    'multiple' => 'multiple',
+                ],
+                'expanded' => true,
+                'multiple' => true,
+                'label' => Lang::get('album.form.mediums'),
+                'label_attr' => [
+                    'class' => 'block',
+                ],
             ]);
     }
 }

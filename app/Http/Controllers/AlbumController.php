@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Album;
+use App\Forms\AlbumForm;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Lang;
+use Kris\LaravelFormBuilder\FormBuilder;
 
 class AlbumController extends Controller
 {
@@ -14,7 +17,7 @@ class AlbumController extends Controller
      */
     public function index()
     {
-        $albums = Album::all();
+        $albums = Album::all()->sortBy('title');
 
         return view('album.index', ['albums' => $albums]);
     }
@@ -22,11 +25,25 @@ class AlbumController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param FormBuilder $formBuilder
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(FormBuilder $formBuilder)
     {
-        //
+
+        $form = $formBuilder->create(AlbumForm::class, [
+            'method' => 'POST',
+            'url' => route('album.store'),
+            'model' => new Album(),
+        ])
+            ->add('submit', 'submit', [
+                'label' => Lang::get('buttons.add'),
+                'attr' => [
+                    'class' => 'btn btn-success pull-right',
+                    'role' => 'button',
+                ]]);
+
+        return view('album.create', compact('form'));
     }
 
     /**
@@ -59,7 +76,7 @@ class AlbumController extends Controller
      */
     public function edit(Album $album)
     {
-        //
+
     }
 
     /**

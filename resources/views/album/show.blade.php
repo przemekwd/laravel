@@ -75,12 +75,12 @@
                         <td class="strong">{{ $track->number }}</td>
                         <td>{{ $track->title }}</td>
                         <td>
-                            <a href="{{ route('track.edit', ['albumid' => $album->id, 'id' => $track->id]) }}" class="btn btn-warning" role="button">
-                                <i class="material-icons">create</i>
-                            </a>
-                            <a href="{{ route('track.destroy', ['albumid' => $album->id, 'id' => $track->id]) }}" class="btn btn-danger" role="button">
-                                <i class="material-icons">highlight_off</i>
-                            </a>
+                            {{ Form::open(['route' => ['track.destroy', $album->id, 'id' => $track->id], 'method' => 'DELETE']) }}
+                                <a href="{{ route('track.edit', ['albumid' => $album->id, 'id' => $track->id]) }}" class="btn btn-warning" role="button">
+                                    <i class="material-icons">create</i>
+                                </a>
+                                <button class="btn btn-danger" type="submit" role="button"><i class="material-icons">highlight_off</i></button>
+                            {{ Form::close() }}
                         </td>
                     </tr>
                 @endforeach

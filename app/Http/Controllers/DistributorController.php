@@ -17,7 +17,7 @@ class DistributorController extends Controller
      */
     public function index()
     {
-        $distributors = Distributor::all();
+        $distributors = Distributor::all()->sortBy('name');
 
         return view('distributor.index', ['distributors' => $distributors]);
     }

@@ -62,6 +62,6 @@ class Album extends Model
 
     public function tracks()
     {
-        return $this->hasMany('App\Track');
+        return $this->hasMany('App\Track')->orderBy('number');
     }
 }
