@@ -13,6 +13,9 @@ class Genre extends Model
      */
     protected $table = 'genre';
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function albums()
     {
         return $this->belongsToMany('App\Album', 'album_genre');

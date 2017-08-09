@@ -29,6 +29,9 @@ class Track extends Model
      */
     public $timestamps = false;
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function album()
     {
         return $this->belongsTo('App\Album');

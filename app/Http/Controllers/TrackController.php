@@ -75,8 +75,8 @@ class TrackController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param FormBuilder $formBuilder
-     * @param $albumid
-     * @param $id
+     * @param int $albumid
+     * @param int $id
      * @return \Illuminate\Http\Response
      * @internal param Track $track
      */
@@ -105,9 +105,9 @@ class TrackController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param Track $track
+     * @param int $albumid
      * @param FormBuilder $formBuilder
+     * @param Track $track
      * @return \Illuminate\Http\Response
      */
     public function update($albumid, FormBuilder $formBuilder, Track $track)
@@ -137,6 +137,7 @@ class TrackController extends Controller
     /**
      * Remove the specified resource from storage.
      *
+     * @param int $albumid
      * @param Track $track
      * @return \Illuminate\Http\Response
      */

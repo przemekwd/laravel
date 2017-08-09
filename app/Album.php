@@ -15,6 +15,7 @@ class Album extends Model
     protected $table = 'album';
 
     /**
+     * Fillable arguments.
      *
      * @var array
      */
@@ -36,36 +37,57 @@ class Album extends Model
      */
     public $timestamps = false;
 
+    /**
+     * @param $value
+     */
     public function setReleaseDateAttribute($value)
     {
         $this->attributes['release_date'] = date('Y-m-d', strtotime($value));
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function artist()
     {
         return $this->belongsTo('App\Artist');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function distributor()
     {
         return $this->belongsTo('App\Distributor');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function genres()
     {
         return $this->belongsToMany('App\Genre', 'album_genre');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function mediums()
     {
         return $this->belongsToMany('App\Medium', 'album_medium');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     */
     public function tracks()
     {
         return $this->hasMany('App\Track')->orderBy('number');
     }
 
+    /**
+     * @param Request $request
+     */
     public function saveCover(Request $request)
     {
         $imageName = md5(uniqid()) .  '.' . $request->file('cover')->getClientOriginalExtension();
@@ -77,10 +99,15 @@ class Album extends Model
         $this->attributes['cover'] = $imageName;
     }
 
+    /**
+     * @return array
+     */
     public function getGenresListAttribute()
     {
         if (count($this->genres)) {
             return $this->genres->lists('id')->toArray();
+        } else {
+            return [];
         }
     }
 }

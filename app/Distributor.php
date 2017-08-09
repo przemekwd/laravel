@@ -29,6 +29,9 @@ class Distributor extends Model
      */
     public $timestamps = false;
 
+    /**
+     * @return mixed
+     */
     public function __toString()
     {
         return $this->attributes['name'];

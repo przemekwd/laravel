@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Artist;
 use App\Forms\ArtistForm;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\Session;
 use Kris\LaravelFormBuilder\FormBuilder;
 
 class ArtistController extends Controller
@@ -115,12 +113,11 @@ class ArtistController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
      * @param  \App\Artist $artist
      * @param FormBuilder $formBuilder
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Artist $artist, FormBuilder $formBuilder)
+    public function update(Artist $artist, FormBuilder $formBuilder)
     {
         $form = $formBuilder->create(ArtistForm::class, [
                 'method' => 'PUT',

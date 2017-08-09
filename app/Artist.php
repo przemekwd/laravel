@@ -40,21 +40,34 @@ class Artist extends Model
      */
     protected $dateFormat = 'Y-m-d';
 
+    /**
+     * @var array
+     */
     protected $defaults = [
         'band' => 0,
     ];
 
+    /**
+     * Artist constructor.
+     * @param array $attributes
+     */
     public function __construct(array $attributes = [])
     {
         $this->setRawAttributes($this->defaults, true);
         parent::__construct($attributes);
     }
 
+    /**
+     * @param $value
+     */
     public function setBirthDateAttribute($value)
     {
         $this->attributes['birth_date'] = date('Y-m-d', strtotime($value));
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         if (!empty($this->attributes['name'])) {

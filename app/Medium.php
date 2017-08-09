@@ -13,6 +13,9 @@ class Medium extends Model
      */
     protected $table = 'medium';
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function albums()
     {
         return $this->belongsToMany('App\Album', 'album_medium');

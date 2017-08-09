@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Distributor;
 use App\Forms\DistributorForm;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 use Kris\LaravelFormBuilder\FormBuilder;
 
@@ -114,12 +113,11 @@ class DistributorController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
      * @param  \App\Distributor $distributor
      * @param FormBuilder $formBuilder
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Distributor $distributor, FormBuilder $formBuilder)
+    public function update(Distributor $distributor, FormBuilder $formBuilder)
     {
         $form = $formBuilder->create(DistributorForm::class, [
             'method' => 'PUT',
