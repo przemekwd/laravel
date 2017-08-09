@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 class Album extends Model
 {
@@ -19,7 +20,7 @@ class Album extends Model
      */
     protected $fillable = [
         'title',
-        'atrist_id',
+        'artist_id',
         'distributor_id',
         'description',
         'release_date',
@@ -52,16 +53,34 @@ class Album extends Model
 
     public function genres()
     {
-        return $this->belongsToMany('App\Genre');
+        return $this->belongsToMany('App\Genre', 'album_genre');
     }
 
     public function mediums()
     {
-        return $this->belongsToMany('App\Medium');
+        return $this->belongsToMany('App\Medium', 'album_medium');
     }
 
     public function tracks()
     {
         return $this->hasMany('App\Track')->orderBy('number');
+    }
+
+    public function saveCover(Request $request)
+    {
+        $imageName = md5(uniqid()) .  '.' . $request->file('cover')->getClientOriginalExtension();
+
+        $request->file('cover')->move(
+            base_path() . '/public/uploads/album/cover/', $imageName
+        );
+
+        $this->attributes['cover'] = $imageName;
+    }
+
+    public function getGenresListAttribute()
+    {
+        if (count($this->genres)) {
+            return $this->genres->lists('id')->toArray();
+        }
     }
 }

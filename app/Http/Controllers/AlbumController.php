@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Album;
 use App\Forms\AlbumForm;
+use App\Genre;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 use Kris\LaravelFormBuilder\FormBuilder;
@@ -30,11 +32,9 @@ class AlbumController extends Controller
      */
     public function create(FormBuilder $formBuilder)
     {
-
         $form = $formBuilder->create(AlbumForm::class, [
             'method' => 'POST',
             'url' => route('album.store'),
-            'model' => new Album(),
         ])
             ->add('submit', 'submit', [
                 'label' => Lang::get('buttons.add'),
@@ -49,12 +49,42 @@ class AlbumController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
+     * @param FormBuilder $formBuilder
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, FormBuilder $formBuilder)
     {
-        //
+        $form = $formBuilder->create(AlbumForm::class, [
+            'method' => 'POST',
+            'url' => route('album.store'),
+            ])
+            ->add('submit', 'submit', [
+                'label' => Lang::get('buttons.add'),
+                'attr' => [
+                    'class' => 'btn btn-success pull-right',
+                    'role' => 'button',
+                ]]);
+
+        if (!$form->isValid()) {
+            return redirect()->back()->withErrors($form->getErrors())->withInput();
+        }
+
+        $album = new Album();
+        $album->fill($form->getRequest()->all());
+        $album->saveCover($request);
+        $album->created = new DateTime('now');
+        $album->save();
+
+        foreach ($request->get('genres') as $genre) {
+            $album->genres()->attach($genre[0]);
+        }
+
+        foreach ($request->get('mediums') as $medium) {
+            $album->mediums()->attach($medium[0]);
+        }
+
+        return redirect()->route('album.index');
     }
 
     /**
@@ -71,24 +101,68 @@ class AlbumController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Album  $album
+     * @param  \App\Album $album
+     * @param FormBuilder $formBuilder
      * @return \Illuminate\Http\Response
      */
-    public function edit(Album $album)
+    public function edit(Album $album, FormBuilder $formBuilder)
     {
+        $form = $formBuilder->create(AlbumForm::class, [
+            'method' => 'PUT',
+            'url' => route('album.update', ['id' => $album->id]),
+            'model' => $album,
+        ])
+            ->add('submit', 'submit', [
+                'label' => Lang::get('buttons.edit'),
+                'attr' => [
+                    'class' => 'btn btn-warning pull-right',
+                    'role' => 'button',
+                ],
+            ]);
 
+        return view('album.edit', compact('form'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Album  $album
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Album $album
+     * @param FormBuilder $formBuilder
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Album $album)
+    public function update(Request $request, Album $album, FormBuilder $formBuilder)
     {
-        //
+        $form = $formBuilder->create(AlbumForm::class, [
+            'method' => 'PUT',
+            'url' => route('album.update', ['id' => $album->id]),
+            'model' => $album,
+        ])
+            ->add('submit', 'submit', [
+                'label' => Lang::get('buttons.edit'),
+                'attr' => [
+                    'class' => 'btn btn-success pull-right',
+                    'role' => 'button',
+                ],
+            ]);
+
+        if (!$form->isValid()) {
+            return redirect()->back()->withErrors($form->getErrors())->withInput();
+        }
+
+        $album->fill($form->getRequest()->all());
+        $album->saveCover($request);
+        $album->save();
+
+        foreach ($request->get('genres') as $genre) {
+            $album->genres()->attach($genre[0]);
+        }
+
+        foreach ($request->get('mediums') as $medium) {
+            $album->mediums()->attach($medium[0]);
+        }
+
+        return redirect()->route('artist.index');
     }
 
     /**
@@ -99,6 +173,10 @@ class AlbumController extends Controller
      */
     public function destroy(Album $album)
     {
-        //
+        $album->genres()->detach();
+        $album->mediums()->detach();
+        $album->delete();
+
+        return redirect()->route('album.index');
     }
 }

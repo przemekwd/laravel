@@ -12,4 +12,9 @@ class Genre extends Model
      * @var string
      */
     protected $table = 'genre';
+
+    public function albums()
+    {
+        return $this->belongsToMany('App\Album', 'album_genre');
+    }
 }

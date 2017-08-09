@@ -4,7 +4,6 @@ namespace App\Forms;
 
 use App\Artist;
 use App\Distributor;
-use App\Genre;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Lang;
 use Kris\LaravelFormBuilder\Form;
@@ -21,7 +20,7 @@ class AlbumForm extends Form
                 'label' => Lang::get('album.form.title'),
                 'required' => true,
             ])
-            ->add('description', 'text', [
+            ->add('description', 'textarea', [
                 'attr' => [
                     'class' => 'form-control mb-2',
                 ],
@@ -45,7 +44,7 @@ class AlbumForm extends Form
                 ],
                 'label' => Lang::get('album.form.record_year'),
             ])
-            ->add('artist', 'entity', [
+            ->add('artist_id', 'entity', [
                 'class' => 'App\Artist',
                 'query_builder' => function (Artist $artist) {
                     return $artist
@@ -61,7 +60,7 @@ class AlbumForm extends Form
                 'label' => Lang::get('album.form.artist'),
                 'required' => true,
             ])
-            ->add('distributor', 'entity', [
+            ->add('distributor_id', 'entity', [
                 'class' => 'App\Distributor',
                 'query_builder' => function (Distributor $distributor) {
                     return $distributor
@@ -100,6 +99,13 @@ class AlbumForm extends Form
                 'label_attr' => [
                     'class' => 'block',
                 ],
+            ])
+            ->add('cover', 'file', [
+                'attr' => [
+                    'class' => 'btn btn-default mb-2',
+                ],
+                'label' => Lang::get('album.form.cover'),
+                'required' => true,
             ]);
     }
 }

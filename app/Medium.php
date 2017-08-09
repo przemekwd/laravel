@@ -12,4 +12,9 @@ class Medium extends Model
      * @var string
      */
     protected $table = 'medium';
+
+    public function albums()
+    {
+        return $this->belongsToMany('App\Album', 'album_medium');
+    }
 }

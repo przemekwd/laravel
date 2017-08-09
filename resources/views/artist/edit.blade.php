@@ -3,12 +3,12 @@
 @section('content')
     <h1>
         <i class="material-icons" style="font-size:38px;">account_box</i>
-        <span>@lang('artist.edit')</span>
+        <span>@lang('album.edit')</span>
     </h1>
 
     {!! form($form) !!}
 
-    <a href="{{ route('artist.index') }}" class="btn btn-default" role="button" aria-label="Left Align">
+    <a href="{{ route('album.index') }}" class="btn btn-default" role="button" aria-label="Left Align">
         <i class="material-icons">undo</i>
         @lang('buttons.back')
     </a>

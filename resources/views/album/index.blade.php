@@ -26,18 +26,20 @@
                 <td>{{ $album->artist }}</td>
                 <td>{{ $album->distributor }}</td>
                 <td>
-                    <a href="{{ route('album.show', ['id' => $album->id]) }}" class="btn btn-info" role="button">
-                        <i class="material-icons">info_outline</i>
-                        @lang('buttons.show')
-                    </a>
-                    <a href="{{ route('album.edit', ['id' => $album->id]) }}" class="btn btn-warning" role="button">
-                        <i class="material-icons">create</i>
-                        @lang('buttons.edit')
-                    </a>
-                    <a href="{{ route('album.destroy', ['id' => $album->id]) }}" class="btn btn-danger" role="button">
-                        <i class="material-icons">highlight_off</i>
-                        @lang('buttons.delete')
-                    </a>
+                    {{ Form::open(['route' => ['album.destroy', $album->id], 'method' => 'DELETE']) }}
+                        <a href="{{ route('album.show', ['id' => $album->id]) }}" class="btn btn-info" role="button">
+                            <i class="material-icons">info_outline</i>
+                            @lang('buttons.show')
+                        </a>
+                        <a href="{{ route('album.edit', ['id' => $album->id]) }}" class="btn btn-warning" role="button">
+                            <i class="material-icons">create</i>
+                            @lang('buttons.edit')
+                        </a>
+                        <button class="btn btn-danger" type="submit" role="button">
+                            <i class="material-icons">highlight_off</i>
+                            @lang('buttons.delete')
+                        </button>
+                    {{ Form::close() }}
                 </td>
             </tr>
             @endforeach

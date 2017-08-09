@@ -172,3 +172,8 @@ table tbody tr td {
 .block {
     display: block;
 }
+
+.control-label {
+    font-weight: normal;
+    margin-right: 5px;
+}
