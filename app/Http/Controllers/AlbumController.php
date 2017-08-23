@@ -15,13 +15,20 @@ class AlbumController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $albums = Album::all()->sortBy('title');
+        $filter = $request->get('filter');
+        $search = $request->get('search');
 
-        return view('album.index', ['albums' => $albums]);
+        $albums = Album::findAll($filter, $search);
+
+        return view('album.index', [
+            'albums' => $albums,
+            'search' => $search,
+        ]);
     }
 
     /**

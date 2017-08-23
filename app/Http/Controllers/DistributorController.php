@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Distributor;
 use App\Forms\DistributorForm;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 use Kris\LaravelFormBuilder\FormBuilder;
 
@@ -12,13 +13,20 @@ class DistributorController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $distributors = Distributor::all()->sortBy('name');
+        $filter = $request->get('filter');
+        $search = $request->get('search');
 
-        return view('distributor.index', ['distributors' => $distributors]);
+        $distributors = Distributor::findAll($filter, $search);
+
+        return view('distributor.index', [
+            'distributors' => $distributors,
+            'search' => $search,
+        ]);
     }
 
     /**

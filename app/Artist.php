@@ -76,4 +76,21 @@ class Artist extends Model
             return $this->attributes['firstname'] . ' ' . $this->attributes['lastname'];
         }
     }
+
+    public static function findAll($filter = null, $search = '')
+    {
+        $albums = Artist::where('name', 'like','%' . $search . '%')
+            ->orWhere('lastname', 'like','%' . $search . '%')
+            ->orWhere('firstname', 'like','%' . $search . '%');
+
+        if ($filter) {
+            $filter = explode(',', $filter);
+            foreach ($filter as $f) {
+                $tmp = explode(' ', $f);
+                $albums = $albums->orderBy($tmp[0], $tmp[1]);
+            }
+        }
+
+        return $albums->get();
+    }
 }

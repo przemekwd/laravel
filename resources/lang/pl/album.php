@@ -14,7 +14,7 @@ return [
     */
 
     'list' => 'Lista albumów',
-    'edit' => 'Edycja albumu',
+    'edit' => 'Edytuj album',
     'show' => 'Informacje',
     'new' => 'Nowy album',
     'form' => [

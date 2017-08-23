@@ -36,4 +36,19 @@ class Distributor extends Model
     {
         return $this->attributes['name'];
     }
+
+    public static function findAll($filter = null, $search = '')
+    {
+        $albums = Distributor::where('name', 'like','%' . $search . '%');
+
+        if ($filter) {
+            $filter = explode(',', $filter);
+            foreach ($filter as $f) {
+                $tmp = explode(' ', $f);
+                $albums = $albums->orderBy($tmp[0], $tmp[1]);
+            }
+        }
+
+        return $albums->get();
+    }
 }

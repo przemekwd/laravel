@@ -177,3 +177,12 @@ table tbody tr td {
     font-weight: normal;
     margin-right: 5px;
 }
+
+button.filter {
+    padding: 0;
+}
+
+.btn-white {
+    padding:0;
+    background-color:white;
+}

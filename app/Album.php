@@ -110,4 +110,19 @@ class Album extends Model
             return [];
         }
     }
+
+    public static function findAll($filter = null, $search = '')
+    {
+        $albums = Album::where('title', 'like','%' . $search . '%');
+
+        if ($filter) {
+            $filter = explode(',', $filter);
+            foreach ($filter as $f) {
+                $tmp = explode(' ', $f);
+                $albums = $albums->orderBy($tmp[0], $tmp[1]);
+            }
+        }
+
+        return $albums->get();
+    }
 }

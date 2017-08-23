@@ -3,7 +3,7 @@
 @section('content')
     <h1>
         <i class="material-icons" style="font-size:38px;">album</i>
-        <span>@lang('artist.edit')</span>
+        <span>@lang('album.edit')</span>
     </h1>
 
     {!! form($form) !!}

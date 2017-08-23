@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Artist;
 use App\Forms\ArtistForm;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 use Kris\LaravelFormBuilder\FormBuilder;
 
@@ -12,13 +13,20 @@ class ArtistController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $artists = Artist::all()->sortBy('name, lastname, firstname');
+        $filter = $request->get('filter');
+        $search = $request->get('search');
 
-        return view('artist.index', ['artists' => $artists]);
+        $artists = Artist::findAll($filter, $search);
+
+        return view('artist.index', [
+            'artists' => $artists,
+            'search' => $search,
+        ]);
     }
 
     /**
